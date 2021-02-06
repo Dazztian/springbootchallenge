@@ -5,12 +5,10 @@ import com.desafioSpring.search.DTO.ProductDTO;
 import com.desafioSpring.search.DTO.searchRequestDTO;
 import com.desafioSpring.purchase.service.PurchaseService;
 import com.desafioSpring.search.service.impl.SearchServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -25,7 +23,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     //Tomo como approach que se puedan procesar TODOS los productos o ninguno
     //con que solo 1 "article" no se puede satisfacer, la solicitud es invalida
     @Override
-    public ResponseDTO purchaseRequest(purchaseRequestDTO request)
+    public ResponseDTO purchaseRequest(PurchaseRequestDTO request)
     {
 
         List<ArticleDTO> responseArticleDTOList= request.getArticles();
@@ -54,7 +52,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     }
 
+    @Override
+    public ShoppingCartDTO createShoppingCart(List<PurchaseRequestDTO> requestList)
+    {
+        List<ResponseDTO> reponseList = new ArrayList<>();
+        Integer totalPrice=0;
 
+        for(PurchaseRequestDTO purchaseRequestDTO: requestList)
+        {
+            ResponseDTO responseDTO= purchaseRequest(purchaseRequestDTO);
+            reponseList.add(responseDTO);
+            totalPrice+=responseDTO.getTotalPrice();
+        }
+
+        return new ShoppingCartDTO(reponseList, totalPrice);
+    }
 
 
     //Compro de a 1 producto

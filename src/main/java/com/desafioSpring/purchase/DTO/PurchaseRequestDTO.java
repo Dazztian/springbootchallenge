@@ -3,12 +3,12 @@ package com.desafioSpring.purchase.DTO;
 
 import java.util.List;
 
-public class purchaseRequestDTO {
+public class PurchaseRequestDTO {
 
     private String username;
     private List<ArticleDTO> articles;
 
-    public purchaseRequestDTO(String username, List<ArticleDTO> articles) {
+    public PurchaseRequestDTO(String username, List<ArticleDTO> articles) {
         this.username = username;
         this.articles = articles;
     }
