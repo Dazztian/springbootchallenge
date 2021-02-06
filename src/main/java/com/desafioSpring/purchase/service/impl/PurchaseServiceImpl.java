@@ -1,53 +1,84 @@
 package com.desafioSpring.purchase.service.impl;
 
-import com.desafioSpring.purchase.DTO.ArticleDTO;
-import com.desafioSpring.purchase.DTO.purchaseRequestDTO;
+import com.desafioSpring.purchase.DTO.*;
 import com.desafioSpring.search.DTO.ProductDTO;
 import com.desafioSpring.search.DTO.searchRequestDTO;
-import com.desafioSpring.purchase.DTO.ResponseDTO;
 import com.desafioSpring.purchase.service.PurchaseService;
 import com.desafioSpring.search.service.impl.SearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
 
+    searchRequestDTO searchRequestDTO =  new searchRequestDTO(null, null, null, null,null, null, null, null,null, null, null, null, null);
+
     SearchServiceImpl searchService= new SearchServiceImpl();
 
 
+    //Tomo como approach que se puedan procesar TODOS los productos o ninguno
+    //con que solo 1 "article" no se puede satisfacer, la solicitud es invalida
     @Override
     public ResponseDTO purchaseRequest(purchaseRequestDTO request)
     {
 
-        System.out.println("COMPRANDO EL PRODUCTO");
+        List<ArticleDTO> responseArticleDTOList= request.getArticles();
+        Integer totalPrice =0;
+
+
         for(ArticleDTO article: request.getArticles())
-        buyProduct(article.getProductId());
-        return null;
+        {
+            ProductDTO productDTO=buyProduct(article.getProductId());
+            //Con que solo 1 producto falle, ya tiro abajo toda la operacion
+            if(productDTO == null)
+            {
+                //Armamos la response fallida
+                return createResponseDTO(responseArticleDTOList,0, 404, "ERROR, NOT FOUND", "No se pudo completar la solicitud, no se encontró uno de los productos");
+            }
+            if (  article.getQuantity() > productDTO.getQuantity() )
+            {
+                return createResponseDTO(responseArticleDTOList, 0, 400, "ERROR, WRONG QUANTITY", "No se pudo completar la solicitud,  uno de los productos no tiene la cantidad suficiente en stock");
+            }
+
+            totalPrice+=productDTO.getPrice() * productDTO.getQuantity();
+        }
+        ResponseDTO responseDTO = createResponseDTO(responseArticleDTOList, totalPrice,200, "OK", "La solicitud se completo con exito");
+
+        return responseDTO;
+
     }
 
 
 
-    //Primero lo hago para 1 elemento, luego lo desarrollo para toda una lista
-    //public ResponseDTO buyProduct(Integer id)
+
+    //Compro de a 1 producto
     public ProductDTO buyProduct(Integer id)
     {
-        /*System.out.println("YENDO A BUSCAR EL PRODUCTO");
-        searchRequestDTO request = new searchRequestDTO();
-        System.out.println(Optional.of(id).get());
-        request.setId(Optional.of(id));
-        System.out.println(request.getId());
+        searchRequestDTO request = searchRequestDTO.createSearchRequestDTOOnlyWithId(id);
 
-        searchService.getProducts(request);
+        //CHECKEAMOS QUE NO DEVUELVA LISTA VACIA
+        if(searchService.getProducts(request).size() < 1)
+            return null;
+        else
+        {
+            ProductDTO productDTO = searchService.getProducts(request).get(0);
+            return productDTO;
+        }
 
-        System.out.println("ENCONTRE EL PRODUCTO");
-
-        System.out.println("IMPRIMIENDO EL RESULTADO");
-        for (ProductDTO productDTO: searchService.getProducts(request))
-        System.out.println(productDTO.getName());*/
-        return null;
     }
+
+    private ResponseDTO createResponseDTO(List<ArticleDTO> responseArticleDTOList, int totalPrice, int statusCode, String status, String message) {
+        //De manera arbitraria el id del response es aleatorio
+        int receiptId = (new Random()).nextInt(100000) ;
+        ReceiptDTO responseReceiptDTO = new ReceiptDTO(receiptId, status, responseArticleDTOList);
+        StatusCodeDTO responseStatusCodeDTO = new StatusCodeDTO(statusCode, message);
+        return new ResponseDTO(responseReceiptDTO, responseStatusCodeDTO, totalPrice);
+    }
+
 }

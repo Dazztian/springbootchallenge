@@ -21,6 +21,13 @@ public class searchRequestDTO {
     private Optional<Integer> sortMethod;
 
 
+    public static searchRequestDTO createSearchRequestDTOOnlyWithId(Integer id)
+    {
+        return new searchRequestDTO(Optional.of(id), Optional.empty(), Optional.empty(), Optional.empty(),
+                Optional.empty(),Optional.empty(),Optional.empty(),Optional.empty(),
+                Optional.empty(),Optional.empty(),Optional.empty(),Optional.empty(),
+                Optional.empty());
+    }
 
     public searchRequestDTO(Optional<Integer> id, Optional<String> category, Optional<String> name, Optional<String> brand, Optional<Integer> price, Optional<Integer> minPrice, Optional<Integer> maxPrice, Optional<Integer> quantity, Optional<Integer> minQuantity, Optional<Boolean> freeShipping, Optional<String> prestige, Optional<List<String>> filter2, Optional<Integer> sortMethod) {
 

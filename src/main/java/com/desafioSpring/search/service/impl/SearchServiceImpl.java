@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 public class SearchServiceImpl implements SearchService {
 
 
-    @Autowired
-    ApiBusquedaDAOImpl apiBusqueda;
+    ApiBusquedaDAOImpl apiBusqueda = new ApiBusquedaDAOImpl();
+
+
 
     List<ProductDTO> productList;
 
@@ -38,6 +39,7 @@ public class SearchServiceImpl implements SearchService {
         productList = this.getProductsFiltered(parametros);
 
         this.sortResults(productList, (Comparator) sortMethod);
+
         return productList;
 
     }

@@ -4,10 +4,20 @@ public class ResponseDTO {
 
     private ReceiptDTO receipt;
     private StatusCodeDTO statusCode;
+    private Integer totalPrice;
 
-    public ResponseDTO(ReceiptDTO receipt, StatusCodeDTO statusCode) {
+    public ResponseDTO(ReceiptDTO receipt, StatusCodeDTO statusCode, Integer totalPrice) {
         this.receipt = receipt;
         this.statusCode = statusCode;
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public ReceiptDTO getReceipt() {
