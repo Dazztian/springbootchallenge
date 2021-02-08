@@ -3,10 +3,8 @@ package com.desafioSpring.ClientsAPI.controller;
 
 import com.desafioSpring.ClientsAPI.DTO.ClientDTO;
 import com.desafioSpring.ClientsAPI.DTO.RequestDTO;
-import com.desafioSpring.ClientsAPI.service.ClientService;
+import com.desafioSpring.ClientsAPI.DTO.ResponseDTO;
 import com.desafioSpring.ClientsAPI.service.impl.ClientServiceImpl;
-import com.desafioSpring.SalesAPI.purchase.DTO.PurchaseRequestDTO;
-import com.desafioSpring.SalesAPI.purchase.DTO.ResponseDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +18,9 @@ public class APIClientRestController {
 
     @PostMapping("/createclient")
     @ResponseBody
-    public ClientDTO createClient(@RequestBody ClientDTO clientDTO)
+    public ResponseDTO createClient(@RequestBody ClientDTO clientDTO)
     {
-        return null;
+        return clientService.createClient(clientDTO);
     }
 
     @GetMapping("/getclients")
@@ -31,7 +29,6 @@ public class APIClientRestController {
     {
         return clientService.getAllClients();
     }
-
 
 
     @GetMapping("/getclientsfiltered")
