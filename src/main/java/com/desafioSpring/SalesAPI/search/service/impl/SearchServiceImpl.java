@@ -66,8 +66,8 @@ public class SearchServiceImpl implements SearchService {
 
             if(num==0) this.sortMethod= new SortByNameASC();
             if(num==1) this.sortMethod= new SortByNameDESC();
-            if(num==2) this.sortMethod= new SortByLowestPrice();
-            if(num==3) this.sortMethod= new SortByHighestPrice();
+            if(num==2) this.sortMethod= new SortByHighestPrice();
+            if(num==3) this.sortMethod= new SortByLowestPrice();
         }
     }
 
