@@ -8,6 +8,7 @@ import com.desafioSpring.SalesAPI.search.service.impl.SearchServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -18,6 +19,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     searchRequestDTO searchRequestDTO =  new searchRequestDTO(null, null, null, null,null, null, null, null,null, null, null, null, null);
 
     SearchServiceImpl searchService= new SearchServiceImpl();
+
+    //La key es la id del product, y el value la cant pedida
+    HashMap<Integer, Integer> amountRequestedByProductId = new HashMap<>();
+
 
 
     //Tomo como approach que se puedan procesar TODOS los productos o ninguno
@@ -33,18 +38,26 @@ public class PurchaseServiceImpl implements PurchaseService {
         for(ArticleDTO article: request.getArticles())
         {
             ProductDTO productDTO=buyProduct(article.getProductId());
+
             //Con que solo 1 producto falle, ya tiro abajo toda la operacion
+
             if(productDTO == null)
             {
                 //Armamos la response fallida
                 return createResponseDTO(responseArticleDTOList,0, 404, "ERROR, NOT FOUND", "No se pudo completar la solicitud, no se encontró uno de los productos");
             }
-            if (  article.getQuantity() > productDTO.getQuantity() )
+
+            if (  article.getQuantity() + obtainAmountAlreadyRequested(article) > productDTO.getQuantity() )
             {
                 return createResponseDTO(responseArticleDTOList, 0, 400, "ERROR, WRONG QUANTITY", "No se pudo completar la solicitud,  uno de los productos no tiene la cantidad suficiente en stock");
             }
 
             totalPrice+=productDTO.getPrice() * productDTO.getQuantity();
+
+            //En cada purchase request voy acumulando la cantidad pedida asociando el id con las cantidades
+            //Para asi reflejar la reducción  del stock
+            updateAmountRequested(article, productDTO);
+
         }
         ResponseDTO responseDTO = createResponseDTO(responseArticleDTOList, totalPrice,200, "OK", "La solicitud se completo con exito");
 
@@ -52,6 +65,37 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     }
 
+
+    //Se encarga de actualizar el hashmap con la información de los pedidos
+    private void updateAmountRequested(ArticleDTO article, ProductDTO productDTO) {
+
+
+        if (amountRequestedByProductId.containsKey(article.getProductId()) )
+        {
+            int nuevaCantidad = obtainAmountAlreadyRequested(article) + article.getQuantity();
+
+            amountRequestedByProductId.put(article.getProductId(), nuevaCantidad);
+        }
+        else {
+            amountRequestedByProductId.put(article.getProductId(), article.getQuantity());
+        }
+
+    }
+
+    //Si ya hay una solicitud, entonces devuelve el valor que contiene, sino devuelve 0.
+    private Integer obtainAmountAlreadyRequested(ArticleDTO article) {
+        if(amountRequestedByProductId.containsKey(article.getProductId()))
+        {
+            return amountRequestedByProductId.get(article.getProductId());
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+
+    //Me gustaria implementar una estructura que contabilice la cantidad pedidas de las distintas request
     @Override
     public ShoppingCartDTO createShoppingCart(List<PurchaseRequestDTO> requestList)
     {

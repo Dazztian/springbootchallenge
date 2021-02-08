@@ -20,8 +20,6 @@ public class SearchServiceImpl implements SearchService {
 
     ApiSearchDAOImpl apiBusqueda = new ApiSearchDAOImpl();
 
-
-
     List<ProductDTO> productList;
 
     SortMethod sortMethod=null;

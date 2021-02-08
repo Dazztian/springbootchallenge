@@ -3,8 +3,8 @@ package com.desafioSpring.SalesAPI.purchase.DTO;
 public class ResponseDTO {
 
     private ReceiptDTO receipt;
-    private StatusCodeDTO statusCode;
     private Integer totalPrice;
+    private StatusCodeDTO statusCode;
 
     public ResponseDTO(ReceiptDTO receipt, StatusCodeDTO statusCode, Integer totalPrice) {
         this.receipt = receipt;
