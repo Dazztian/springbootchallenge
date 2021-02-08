@@ -1,11 +1,1 @@
-[{"id":1,"username":"diego","birthdate":"23/4/1997","province":"Buenos Aires"},
-  {"id":2,"username":"camila","birthdate":"13/7/1992","province":"Cordoba"},
-  {"id":3,"username":"fernando","birthdate":"2/3/1957","province":"Chubut"},
-  {"id":4,"username":"micaela","birthdate":"6/12/1999","province":"Jujuy"},
-  {"id":5,"username":"marcelo","birthdate":"1/12/1949","province":"Jujuy"},
-  {"id":6,"username":"Tamara","birthdate":"26/1/1995","province":"Buenos Aires"},
-  {"id":7,"username":"Carmen","birthdate":"30/7/1989","province":"Catamarca"},
-  {"id":8,"username":"Julio","birthdate":"28/5/1953","province":"Catamarca"},
-  {"id":44,"username":"Julian","birthdate":"2/3/1957","province":"Chubut"},
-  {"id":34,"username":"fernando","birthdate":"2/3/1957","province":"Chubut"},
-  {"id":17,"username":"Macarena","birthdate":"2/3/2000","province":"Jujuy"}]
+[{"id":1,"username":"diego","birthdate":"23/4/1997","province":"Buenos Aires"},{"id":2,"username":"camila","birthdate":"13/7/1992","province":"Cordoba"},{"id":3,"username":"fernando","birthdate":"2/3/1957","province":"Chubut"},{"id":4,"username":"micaela","birthdate":"6/12/1999","province":"Jujuy"},{"id":5,"username":"marcelo","birthdate":"1/12/1949","province":"Jujuy"},{"id":6,"username":"Tamara","birthdate":"26/1/1995","province":"Buenos Aires"},{"id":7,"username":"Carmen","birthdate":"30/7/1989","province":"Catamarca"},{"id":8,"username":"Julio","birthdate":"28/5/1953","province":"Catamarca"},{"id":44,"username":"Julian","birthdate":"2/3/1957","province":"Chubut"},{"id":34,"username":"fernando","birthdate":"2/3/1957","province":"Chubut"},{"id":17,"username":"Macarena","birthdate":"2/3/2000","province":"Jujuy"},{"id":99,"username":"Carmelo","birthdate":"10/10/2000","province":"Neuquen"}]

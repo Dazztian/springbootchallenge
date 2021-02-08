@@ -131,7 +131,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     private ResponseDTO createResponseDTO(List<ArticleDTO> responseArticleDTOList, int totalPrice, int statusCode, String status, String message) {
         //De manera arbitraria el id del response es aleatorio
-        int receiptId = (new Random()).nextInt(100000) ;
+        //int receiptId = (new Random()).nextInt(100000) ;
+        int receiptId = 100000 ;
         ReceiptDTO responseReceiptDTO = new ReceiptDTO(receiptId, status, responseArticleDTOList);
         StatusCodeDTO responseStatusCodeDTO = new StatusCodeDTO(statusCode, message);
         return new ResponseDTO(responseReceiptDTO, responseStatusCodeDTO, totalPrice);

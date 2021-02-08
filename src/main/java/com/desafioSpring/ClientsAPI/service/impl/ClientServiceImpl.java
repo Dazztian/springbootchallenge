@@ -19,7 +19,7 @@ public class ClientServiceImpl implements ClientService {
 
     APIClientsDAOImpl apiClientsDAO= new APIClientsDAOImpl();
 
-    List<ClientDTO> clientList=this.getAllClients();;
+    List<ClientDTO> clientList=this.getAllClients();
 
     @Override
     public ResponseDTO createClient(ClientDTO clientDTO)
@@ -27,12 +27,13 @@ public class ClientServiceImpl implements ClientService {
         //Primero checkeamos todos los casos que NO nos permitirían crear un cliente para cortar la ejecución
         if(this.clientAlreadyExists(clientDTO))
         {
-            return new ResponseDTO(clientList, "400", "No se pudo crear el cliente, ya existe en el sistema");
+
+            return new ResponseDTO(this.getAllClients(), "400", "No se pudo crear el cliente, ya existe en el sistema");
 
         }
         if(this.clientIdAlreadyExists(clientDTO))
         {
-            return new ResponseDTO(clientList, "400", "No se pudo crear el cliente, ya existe en usuario con ese id en el sistema");
+            return new ResponseDTO(this.getAllClients(), "400", "No se pudo crear el cliente, ya existe en usuario con ese id en el sistema");
 
         }
         clientList.add(clientDTO);
