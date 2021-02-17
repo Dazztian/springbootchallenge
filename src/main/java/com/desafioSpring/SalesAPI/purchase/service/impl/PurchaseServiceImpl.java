@@ -12,6 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+
+
+/**
+ * @author Diego Azpeitia
+ */
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 

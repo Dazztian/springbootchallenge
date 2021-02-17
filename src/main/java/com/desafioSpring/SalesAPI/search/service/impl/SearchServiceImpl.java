@@ -6,6 +6,7 @@ import com.desafioSpring.SalesAPI.search.DTO.searchRequestDTO;
 import com.desafioSpring.SalesAPI.search.model.ProductFilterFactory;
 import com.desafioSpring.SalesAPI.search.service.SearchService;
 import com.desafioSpring.SalesAPI.search.model.sorter.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -14,22 +15,27 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+
+/**
+ * @author Diego Azpeitia
+ */
+
 @Service
 public class SearchServiceImpl implements SearchService {
 
 
+    //@Autowired No me lo toma al autowired
     ApiSearchDAOImpl apiBusqueda = new ApiSearchDAOImpl();
 
-    List<ProductDTO> productList;
-
     SortMethod sortMethod=null;
-
 
     public SearchServiceImpl() {
     }
 
     @Override
     public List<ProductDTO> getProducts(searchRequestDTO parametros) {
+
+        List<ProductDTO> productList;
 
         this.setSortMethod(parametros);
 
@@ -45,7 +51,7 @@ public class SearchServiceImpl implements SearchService {
     public List<ProductDTO> getProductsFiltered(searchRequestDTO parametros)
     {
 
-        List<ProductDTO>  matches = apiBusqueda.database;
+        List<ProductDTO>  matches = apiBusqueda.getAllProducts();//apiBusqueda.database;
         Predicate<ProductDTO> compositeFilterRule;
         compositeFilterRule = ProductFilterFactory.getProductFilter(parametros);
 

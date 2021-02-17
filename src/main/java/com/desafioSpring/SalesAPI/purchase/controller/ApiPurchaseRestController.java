@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * @author Diego Azpeitia
+ */
 @RestController
 @RequestMapping("/api/v1/purchase-request")
 public class ApiPurchaseRestController {
-
 
 
     @Autowired

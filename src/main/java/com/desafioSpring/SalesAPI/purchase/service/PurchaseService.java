@@ -6,6 +6,10 @@ import com.desafioSpring.SalesAPI.purchase.DTO.ResponseDTO;
 
 import java.util.List;
 
+
+/**
+ * @author Diego Azpeitia
+ */
 public interface PurchaseService {
 
     public ResponseDTO purchaseRequest(PurchaseRequestDTO request);

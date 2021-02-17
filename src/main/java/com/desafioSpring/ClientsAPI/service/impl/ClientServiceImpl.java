@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+
+/**
+ * @author Diego Azpeitia
+ */
 @Service
 public class ClientServiceImpl implements ClientService {
 

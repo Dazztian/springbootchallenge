@@ -10,19 +10,24 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ApiSearchDAOImpl implements ApiSearchDAO {
 
-    public List<ProductDTO> database;
+    private List<ProductDTO> database;
 
     public ApiSearchDAOImpl()  {
         database = this.loadDatabase();
     }
 
     @Override
-    public List<ProductDTO> getAllProducts() { return this.database; }
+    public List<ProductDTO> getAllProducts()
+    {
+        return new ArrayList<>(this.database);
+    //    return this.database;
+    }
 
 
     public List<ProductDTO>  loadDatabase()  {

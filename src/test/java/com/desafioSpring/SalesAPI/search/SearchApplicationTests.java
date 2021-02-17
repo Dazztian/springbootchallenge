@@ -1,19 +1,18 @@
 package com.desafioSpring.SalesAPI.search;
 
 
-import com.desafioSpring.SalesAPI.purchase.ApiPurchaseApplication;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import static org.hamcrest.core.StringContains.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +30,6 @@ class SearchApplicationTests {
 	}
 
 	String searchURL= "http://localhost:8080/api/v1/articles";
-	String purchaseURL= "/api/v1/purchase-request";
 
 
 	//El test rompe únicamente xq los sorts le cambian el orden

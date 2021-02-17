@@ -12,7 +12,7 @@ public class ProductDTO {
     private Boolean freeShipping;
     private String prestige;
 
-    public ProductDTO(Integer id, String category, String name, String brand, int price, int quantity, Boolean freeShipping, String prestige) {
+    public ProductDTO(Integer id, String name, String category, String brand, int price, int quantity, Boolean freeShipping, String prestige) {
         this.id = id;
         this.category = category;
         this.name = name;

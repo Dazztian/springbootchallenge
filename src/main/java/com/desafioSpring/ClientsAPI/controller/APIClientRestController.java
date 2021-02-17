@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Diego Azpeitia
+ */
 @RestController
 @RequestMapping("/api/clients")
 public class APIClientRestController {
@@ -16,6 +19,9 @@ public class APIClientRestController {
     ClientServiceImpl clientService = new ClientServiceImpl();
 
 
+    /*Método para crear un cliente, recibe como argumento un cliente y devuelve un ResponseDTO
+    que contiene información sobre la operación si fue o no exitosa
+    */
     @PostMapping("/createclient")
     @ResponseBody
     public ResponseDTO createClient(@RequestBody ClientDTO clientDTO)
@@ -23,6 +29,7 @@ public class APIClientRestController {
         return clientService.createClient(clientDTO);
     }
 
+    /* Devuelve la lista de todos los clientes*/
     @GetMapping("/getclients")
     @ResponseBody
     public List<ClientDTO> getAllClients()
@@ -30,7 +37,7 @@ public class APIClientRestController {
         return clientService.getAllClients();
     }
 
-
+    /* Trae la lista de clientes filtrados por una provincia particular */
     @GetMapping("/getclientsfiltered")
     @ResponseBody
     public List<ClientDTO> getAllClientsFilteredByProvince(@RequestBody RequestDTO province)

@@ -5,6 +5,10 @@ import com.desafioSpring.SalesAPI.search.DTO.searchRequestDTO;
 
 import java.util.List;
 
+
+/**
+ * @author Diego Azpeitia
+ */
 public interface SearchService {
 
         public List<ProductDTO> getProducts(searchRequestDTO parametros) ;

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * @author Diego Azpeitia
+ */
 @RestController
 @RequestMapping("/api/v1/articles")
 public class ApiSearchRestControlller {
@@ -17,7 +21,6 @@ public class ApiSearchRestControlller {
 
 
     @GetMapping()
-    @ResponseBody
     public List<ProductDTO> getProducts(searchRequestDTO parametros)
     {
         return searchService.getProducts(parametros);
